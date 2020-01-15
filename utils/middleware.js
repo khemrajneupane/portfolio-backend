@@ -1,8 +1,8 @@
 const tokenExtractor = request => {
-  const authorization = request.get("authorization");
-  if (authorization && authorization.toLowerCase().startsWith("bearer ")) {
-    return authorization.substring(7);
+    const authorization = request.get('authorization')
+    if (authorization && authorization.toLowerCase().startsWith('bearer ')) {
+      return authorization.substring(7)
+    }
+    return null
   }
-  return null;
-};
-module.exports = { tokenExtractor };
+  module.exports = { tokenExtractor }
