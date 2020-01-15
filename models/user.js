@@ -16,6 +16,12 @@ const userSchema = mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: "Portfolio"
     }
+  ],
+  experiences: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Experience"
+    }
   ]
 });
 userSchema.plugin(uniqueValidator);
