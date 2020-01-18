@@ -23,10 +23,10 @@ experienceRouter.get("/", async (req, res) => {
   };
 
   console.log(os.type());
-  const portfolios = await Experience.find({}).sort({
+  const experiences = await Experience.find({}).sort({
     submissionTimestamp: -1
   });
-  res.json(portfolios.map(p => p.toJSON()));
+  res.json(experiences.map(p => p.toJSON()));
 });
 
 /**POST http://localhost:3001/api/experiences/ */

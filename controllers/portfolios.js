@@ -13,7 +13,7 @@ const os = require("os"); //operating system
 portfolioRouter.get("/", async (req, res) => {
   const md = new MobileDetect(req.headers["user-agent"]);
   const agentValue = md.ua;
-  console.log(agentValue);
+
   const info = platform.parse(agentValue);
   const infos = {
     OStype: os.type(),
@@ -22,7 +22,6 @@ portfolioRouter.get("/", async (req, res) => {
     operatingSystem: info.os.family
   };
 
-  console.log(os.type());
   const portfolios = await Portfolio.find({}).sort({ submissionTimestamp: -1 });
   res.json(portfolios.map(p => p.toJSON()));
 });
@@ -66,6 +65,38 @@ portfolioRouter.post("/", async (req, res, next) => {
     if (e.name === "CastError") {
       //console.log(e);
       res.status(400).send(`Value for ${e.stringValue} is not correct`);
+    } else {
+      next(e);
+    }
+  }
+});
+
+/**DELETE http://localhost:3003/api/blogs/id*/
+
+portfolioRouter.delete("/:id", async (req, res, next) => {
+  try {
+    const decodedToken = await jwt.verify(
+      tokenExtractor.tokenExtractor(req),
+      config.SECRET
+    );
+
+    if (!tokenExtractor.tokenExtractor(req) || !decodedToken.id) {
+      res.status(400).send({ error: "Incorrect username or password" });
+      return;
+    }
+    const delThisPortfolio = await Portfolio.findById(req.params.id);
+
+    //console.dir(delThisBlog);
+    if (delThisPortfolio.user.toString() === decodedToken.id.toString()) {
+      await Portfolio.findByIdAndRemove(req.params.id);
+      res.status(200).end();
+    } else {
+      res.status(400).end();
+    }
+  } catch (e) {
+    if (e.name === "CastError") {
+      console.log(e);
+      res.status(400).send(`Id: ${e.stringValue} does not exist`);
     } else {
       next(e);
     }
