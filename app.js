@@ -8,7 +8,7 @@ const experienceRouter = require("./controllers/experiences");
 const messageRouter = require("./controllers/messages");
 const usersRouter = require("./controllers/users");
 const loginRouter = require("./controllers/login");
-//var device = require("express-device");
+
 const mongoose = require("mongoose");
 const middleware = require("./utils/middleware");
 
@@ -24,7 +24,7 @@ mongoose
   });
 
 app.use(cors());
-//app.use(device.capture());
+app.use(express.static("build"));
 app.use(bodyParser.json());
 app.use("/api/portfolios", portfolioRouter);
 app.use("/api/experiences", experienceRouter);

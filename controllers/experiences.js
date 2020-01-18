@@ -5,24 +5,9 @@ const jwt = require("jsonwebtoken");
 const tokenExtractor = require("../utils/middleware");
 const Experience = require("../models/experience");
 const User = require("../models/user");
-const MobileDetect = require("mobile-detect"); //to get user-agent
-const platform = require("platform"); //to parse user-agent
-const os = require("os"); //operating system
 
-/** GET all answers: http://localhost:3001/api/experiences */
+/** GET http://localhost:3001/api/experiences */
 experienceRouter.get("/", async (req, res) => {
-  const md = new MobileDetect(req.headers["user-agent"]);
-  const agentValue = md.ua;
-  console.log(agentValue);
-  const info = platform.parse(agentValue);
-  const infos = {
-    OStype: os.type(),
-    description: info.description,
-    browserName: info.name,
-    operatingSystem: info.os.family
-  };
-
-  console.log(os.type());
   const experiences = await Experience.find({}).sort({
     submissionTimestamp: -1
   });
@@ -70,6 +55,36 @@ experienceRouter.post("/", async (req, res, next) => {
     if (e.name === "CastError") {
       //console.log(e);
       res.status(400).send(`Value for ${e.stringValue} is not correct`);
+    } else {
+      next(e);
+    }
+  }
+});
+/**DELETE http://localhost:3001/api/experiences/id*/
+
+experienceRouter.delete("/:id", async (req, res, next) => {
+  try {
+    const decodedToken = await jwt.verify(
+      tokenExtractor.tokenExtractor(req),
+      config.SECRET
+    );
+
+    if (!tokenExtractor.tokenExtractor(req) || !decodedToken.id) {
+      res.status(400).send({ error: "Incorrect username or password" });
+      return;
+    }
+    const delThisExperience = await Experience.findById(req.params.id);
+
+    if (delThisExperience.user.toString() === decodedToken.id.toString()) {
+      await Experience.findByIdAndRemove(req.params.id);
+      res.status(200).end();
+    } else {
+      res.status(400).end();
+    }
+  } catch (e) {
+    if (e.name === "CastError") {
+      console.log(e);
+      res.status(400).send(`Id: ${e.stringValue} does not exist`);
     } else {
       next(e);
     }
