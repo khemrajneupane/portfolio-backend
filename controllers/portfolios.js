@@ -71,7 +71,7 @@ portfolioRouter.post("/", async (req, res, next) => {
   }
 });
 
-/**DELETE http://localhost:3003/api/blogs/id*/
+/**DELETE http://localhost:3003/api/portfolios/id*/
 
 portfolioRouter.delete("/:id", async (req, res, next) => {
   try {
