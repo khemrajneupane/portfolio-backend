@@ -44,9 +44,9 @@ experienceRouter.post("/", async (req, res, next) => {
       votes: body.votes,
       user: user._id
     });
-    if (!experience.votes) {
+    /* if (!experience.votes) {
       experience.votes = 0;
-    }
+    }*/
     const savedExperiences = await experience.save();
     user.experiences = user.experiences.concat(savedExperiences._id);
     await user.save();
