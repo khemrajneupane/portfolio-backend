@@ -6,7 +6,7 @@
 
 - NodeJS, Express, ES6, JSX Syntaxing (Backend)
 - MogoDB
-- ReactJS, Material UI, Boot Strap
+- ReactJS, Material UI, Boot Strap, Google Map
 
 # Important features:
 
@@ -26,9 +26,9 @@
 
 [Run Locally](http://localhost:3000/)
 
-# Own feed-backs:
+# Rooms for improvement:
 
 - Project still needs better usability, looks
 - Testing is underway
 - User creation can be done from either backend or Postman only, at the moment
-- More rooms for improment as my further self-assignment :)
+- More rooms for improvement as my further self-assignment :)
