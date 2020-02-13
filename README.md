@@ -1,4 +1,4 @@
-# portfolio-backend-deployed
+# portfolio-backend-deployed with front-end build
 
 ## https://khem-portfolio.herokuapp.com/
 
