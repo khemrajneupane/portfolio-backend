@@ -2,17 +2,13 @@ const bcrypt = require("bcryptjs");
 const usersRouter = require("express").Router();
 const User = require("../models/user");
 
-/**get http://localhost:3003/api/users */
+/**get http://localhost:3001/api/users */
 usersRouter.get("/", async (request, response) => {
-  const users = await User.find({}).populate("portfolios", {
-    title: 1,
-    author: 1,
-    url: 1
-  });
+  const users = await User.find()
   response.json(users.map(u => u.toJSON()));
 });
 
-/**POST http://localhost:3003/api/users/*/
+/**POST http://localhost:3001/api/users/*/
 usersRouter.post("/", async (req, res, next) => {
   const body = req.body;
   if (!body.password) {
@@ -27,6 +23,7 @@ usersRouter.post("/", async (req, res, next) => {
     const user = new User({
       username: req.body.username,
       name: req.body.name,
+      email:req.body.email,
       passwordHash
     });
     // password: body.password,

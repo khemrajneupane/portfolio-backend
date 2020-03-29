@@ -11,6 +11,7 @@ const userSchema = mongoose.Schema({
   },
   name: String,
   passwordHash: String,
+  email:String,
   portfolios: [
     {
       type: mongoose.Schema.Types.ObjectId,
