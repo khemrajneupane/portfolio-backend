@@ -8,7 +8,7 @@ const experienceRouter = require("./controllers/experiences");
 const messageRouter = require("./controllers/messages");
 const usersRouter = require("./controllers/users");
 const loginRouter = require("./controllers/login");
-
+const pdfRouter = require("./controllers/pdf")
 const mongoose = require("mongoose");
 const middleware = require("./utils/middleware");
 
@@ -25,12 +25,16 @@ mongoose
 
 app.use(cors());
 app.use(express.static("build"));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.use("/api/portfolios", portfolioRouter);
 app.use("/api/experiences", experienceRouter);
 app.use("/api/messages", messageRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
+app.use("/api", pdfRouter);
+
+
 app.use(middleware.tokenExtractor);
 
 module.exports = app;

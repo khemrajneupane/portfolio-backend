@@ -8,7 +8,7 @@ const experienceSchema = new mongoose.Schema({
   start_date: { type: String },
   end_date: { type: String },
   responsibilities: { type: String },
-  votes: { type: Number },
+  rating: { type: Number },
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"

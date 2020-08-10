@@ -10,15 +10,18 @@
   "author": "Khem Raj Neupane",
   "license": "ISC",
   "devDependencies": {
-    "cross-env": "^5.2.0"
+    "cross-env": "^5.2.0",
+    "nodemon": "^2.0.4"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-device": "^0.4.2",
-    "http-server": "^0.12.1",
+    "html-pdf": "^2.2.0",
+    "http-server": "^0.12.3",
     "jsonwebtoken": "^8.5.1",
     "mobile-detect": "^1.4.4",
     "mongoose": "^5.8.7",

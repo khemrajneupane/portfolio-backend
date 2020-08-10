@@ -21,8 +21,8 @@ experienceRouter.post("/", async (req, res, next) => {
   //console.log(user);
   if (!body.job_title || !body.company || !body.start_date) {
     res.status(400).send("fields are all required");
-  } else if (body.votes && isNaN(Number(body.votes))) {
-    res.send(`${body.votes} is not a number. Please like it with number`);
+  } else if (body.rating && isNaN(Number(body.rating))) {
+    res.send(`${body.rating} is not a number. Please like it with number`);
   }
   try {
     const decodedToken = await jwt.verify(
@@ -41,7 +41,7 @@ experienceRouter.post("/", async (req, res, next) => {
       start_date: body.start_date,
       end_date: body.end_date,
       responsibilities: body.responsibilities,
-      votes: body.votes,
+      rating: body.rating,
       user: user._id
     });
     /* if (!experience.votes) {
