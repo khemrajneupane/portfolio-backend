@@ -6,7 +6,6 @@ const config = require("../utils/config");
 
 loginRouter.post("/", async (request, response) => {
   const user = await User.findOne({ username: request.body.username });
-  console.log(user);
 
   const passwordCorrect =
     user === null
